@@ -1,0 +1,26 @@
+--- 
+title: "Probability"
+author: "Michael Foley"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Basic probability concepts illustrated with R."
+---
+
+# Preface {-}
+
+These are notes from books, classes, tutorials, vignettes, etc. They contain mistakes, are poorly organized, and are sloppy on fundamentals. They should improve over time, but that's all I can say for it. *Use at your own risk.*
+
+The focus of this handbook is probability, including random variables and probability distributions. Not included here: [statistics](https://bookdown.org/mpfoley1973/statistics/), machine learning, text mining, survey analysis, or survival analysis. These subjects frequently arise at work, but are distinct enough and large enough to warrant separate handbooks.
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+
+knitr::opts_chunk$set(fig.height = 3.5)
+```

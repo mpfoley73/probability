@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Random Variables and Distributions | Probability</title>
+  <meta name="description" content="Basic probability concepts illustrated with R." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Random Variables and Distributions | Probability" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Basic probability concepts illustrated with R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Random Variables and Distributions | Probability" />
+  
+  <meta name="twitter:description" content="Basic probability concepts illustrated with R." />
+  
+
+<meta name="author" content="Michael Foley" />
+
+
+<meta name="date" content="2023-09-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="methods.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Probability for Data Analysis in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Basics</a></li>
+<li class="chapter" data-level="2" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html"><i class="fa fa-check"></i><b>2</b> Random Variables and Distributions</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#bernoulli"><i class="fa fa-check"></i><b>2.1</b> Bernoulli</a></li>
+<li class="chapter" data-level="2.2" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#binomial"><i class="fa fa-check"></i><b>2.2</b> Binomial</a></li>
+<li class="chapter" data-level="2.3" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#hypergeometric"><i class="fa fa-check"></i><b>2.3</b> Hypergeometric</a></li>
+<li class="chapter" data-level="2.4" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#poisson"><i class="fa fa-check"></i><b>2.4</b> Poisson</a></li>
+<li class="chapter" data-level="2.5" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#exponential"><i class="fa fa-check"></i><b>2.5</b> Exponential</a></li>
+<li class="chapter" data-level="2.6" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#gamma"><i class="fa fa-check"></i><b>2.6</b> Gamma</a></li>
+<li class="chapter" data-level="2.7" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#beta"><i class="fa fa-check"></i><b>2.7</b> Beta</a></li>
+<li class="chapter" data-level="2.8" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#normal"><i class="fa fa-check"></i><b>2.8</b> Normal</a></li>
+<li class="chapter" data-level="2.9" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#student-t"><i class="fa fa-check"></i><b>2.9</b> Student t</a></li>
+<li class="chapter" data-level="2.10" data-path="random-variables-and-distributions.html"><a href="random-variables-and-distributions.html#weibull"><i class="fa fa-check"></i><b>2.10</b> Weibull</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
+<li class="chapter" data-level="4" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>4</b> Applications</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>4.1</b> Example one</a></li>
+<li class="chapter" data-level="4.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>4.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probability</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="random-variables-and-distributions" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Random Variables and Distributions<a href="random-variables-and-distributions.html#random-variables-and-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Given a distribution function <span class="math inline">\(f(x)\)</span>, its integral over the domain of <span class="math inline">\(x\)</span> sums to 1, <span class="math inline">\(\int {f(x)} dx = 1\)</span>. The expected value of random variable <span class="math inline">\(X\)</span> with distribution function <span class="math inline">\(f(x)\)</span> is <span class="math inline">\(E[X] = \int x \cdot f(x) dx\)</span>. The variance of <span class="math inline">\(x\)</span> is <span class="math inline">\(Var(X) = E[(X - E[X])^2] = \int x^2 \cdot f(x) dx\)</span>. Alternatively <span class="math inline">\(Var(X) = E[X^2] - E[X]^2\)</span>.</p>
+<p>For example, suppose <span class="math inline">\(f(x) = cx^2\)</span>, <span class="math inline">\(x \in [0, 1]\)</span>. Then <span class="math inline">\(c = 3\)</span> because <span class="math inline">\(\int_{x = 0}^1 cx^2 dx = 1\)</span>. The expected value of <span class="math inline">\(X\)</span> is <span class="math inline">\(E[X] = \int_{x = 0}^1 x \cdot (3x^2) dx = \frac{3}{4}\)</span>. The variance of <span class="math inline">\(X\)</span> is <span class="math inline">\(Var[X] = \int_{x = 0}^1 (x - \frac{3}{4})^2 \cdot (3x^2) dx\)</span> which you can solve for <span class="math inline">\(\frac{144}{3840} = .0375\)</span>. Alternatively, <span class="math inline">\(Var[X] = \int_{x = 0}^1 x^2 \cdot (3x^2) dx - \left(\frac{3}{4}\right)^2\)</span> which you can solve for <span class="math inline">\(\frac{3}{80} = .0375\)</span></p>
+<div id="bernoulli" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Bernoulli<a href="random-variables-and-distributions.html#bernoulli" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Bernoulli distribution models a single experiment with a binomial outcome. The Bernoulli distribution is a special case of the binomial distribution where a single trial is conducted <span class="math inline">\((n = 1)\)</span>.</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the result of a trial with two outcomes of probability <span class="math inline">\(P(X = 1) = \pi\)</span> and <span class="math inline">\(P(X = 0) = 1 - \pi\)</span>, then <span class="math inline">\(X\)</span> is a random variable with a Bernoulli distribution <span class="math inline">\(X \sim \mathrm{Bernoulli}(\pi)\)</span></p>
+<p><span class="math display">\[f(X = x) = \pi^x (1 - \pi)^{1 - x}, \hspace{1cm} x \in (0, 1)\]</span></p>
+<p>with <span class="math inline">\(E(X) = \pi\)</span> and <span class="math inline">\(Var(X) = \pi(1 - \pi)\)</span>.</p>
+</blockquote>
+</div>
+<div id="binomial" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Binomial<a href="random-variables-and-distributions.html#binomial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Binomial sampling is used to model counts of one level of a categorical variable over a <em>fixed sample size</em>.</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the count of successful events in <span class="math inline">\(n\)</span> identical and independent Bernoulli trials of success probability <span class="math inline">\(\pi\)</span>, then <span class="math inline">\(X\)</span> is a random variable with a binomial distribution <span class="math inline">\(X \sim \mathrm{Bin}(n,\pi)\)</span></p>
+<p><span class="math display">\[f(X = k;n, \pi) = \frac{n!}{k!(n-k)!} \pi^k (1-\pi)^{n-k} \hspace{1cm} k \in (0, 1, ..., n), \hspace{2mm} \pi \in [0, 1]\]</span></p>
+<p>with <span class="math inline">\(E(X)=n\pi\)</span> and <span class="math inline">\(Var(X) = n\pi(1-\pi)\)</span>.</p>
+</blockquote>
+<p>Consider a data set <code>dat_bin</code> containing frequencies of high-risk drinkers vs non-high-risk drinkers in a college survey.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="random-variables-and-distributions.html#cb1-1" tabindex="-1"></a>dat_bin <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="random-variables-and-distributions.html#cb1-2" tabindex="-1"></a>  <span class="at">subject =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1315</span>,</span>
+<span id="cb1-3"><a href="random-variables-and-distributions.html#cb1-3" tabindex="-1"></a>  <span class="at">high_risk =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>, <span class="dv">630</span>), <span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>, <span class="dv">685</span>)))</span>
+<span id="cb1-4"><a href="random-variables-and-distributions.html#cb1-4" tabindex="-1"></a>)</span>
+<span id="cb1-5"><a href="random-variables-and-distributions.html#cb1-5" tabindex="-1"></a>janitor<span class="sc">::</span><span class="fu">tabyl</span>(dat_bin<span class="sc">$</span>high_risk)</span></code></pre></div>
+<pre><code>##  dat_bin$high_risk   n   percent
+##                 No 685 0.5209125
+##                Yes 630 0.4790875</code></pre>
+<p>The MLE of <span class="math inline">\(\pi\)</span> from the Binomial distribution is the sample mean.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="random-variables-and-distributions.html#cb3-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat_bin<span class="sc">$</span>high_risk <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb3-2"><a href="random-variables-and-distributions.html#cb3-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat_bin)</span>
+<span id="cb3-3"><a href="random-variables-and-distributions.html#cb3-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> x <span class="sc">/</span> n</span>
+<span id="cb3-4"><a href="random-variables-and-distributions.html#cb3-4" tabindex="-1"></a><span class="fu">print</span>(p)</span></code></pre></div>
+<pre><code>## [1] 0.4790875</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="random-variables-and-distributions.html#cb5-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">events =</span> <span class="fu">seq</span>(<span class="dv">550</span>, <span class="dv">700</span>, <span class="dv">10</span>), </span>
+<span id="cb5-2"><a href="random-variables-and-distributions.html#cb5-2" tabindex="-1"></a>           <span class="at">pmf =</span> <span class="fu">dbinom</span>(<span class="fu">seq</span>(<span class="dv">550</span>, <span class="dv">700</span>, <span class="dv">10</span>), n, p), </span>
+<span id="cb5-3"><a href="random-variables-and-distributions.html#cb5-3" tabindex="-1"></a>           <span class="at">cdf =</span> <span class="fu">pbinom</span>(<span class="fu">seq</span>(<span class="dv">550</span>, <span class="dv">700</span>, <span class="dv">10</span>), n, p, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="random-variables-and-distributions.html#cb5-4" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-5"><a href="random-variables-and-distributions.html#cb5-5" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> events, <span class="at">y =</span> pmf)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="random-variables-and-distributions.html#cb5-6" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> events, <span class="at">label =</span> <span class="fu">round</span>(pmf, <span class="dv">3</span>), <span class="at">y =</span> pmf <span class="sc">+</span> <span class="fl">0.001</span>),</span>
+<span id="cb5-7"><a href="random-variables-and-distributions.html#cb5-7" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">vjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="random-variables-and-distributions.html#cb5-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> events, <span class="at">y =</span> cdf<span class="sc">/</span><span class="dv">40</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="random-variables-and-distributions.html#cb5-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">025</span>), </span>
+<span id="cb5-10"><a href="random-variables-and-distributions.html#cb5-10" tabindex="-1"></a>                     <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">*</span> <span class="dv">40</span>, <span class="at">name =</span> <span class="st">&quot;Cum Prob&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="random-variables-and-distributions.html#cb5-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;PMF and CDF of Binomial Distribution&quot;</span>,</span>
+<span id="cb5-12"><a href="random-variables-and-distributions.html#cb5-12" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">&quot;Bin(&quot;</span>, n, <span class="st">&quot;, &quot;</span>, scales<span class="sc">::</span><span class="fu">comma</span>(p, <span class="at">accuracy =</span> .<span class="dv">01</span>), <span class="st">&quot;)&quot;</span>), </span>
+<span id="cb5-13"><a href="random-variables-and-distributions.html#cb5-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X = k&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="probability_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>There are several ways to calculate a 95% CI for <span class="math inline">\(\pi\)</span>. One method is the normal approximation <strong>Wald</strong> interval.</p>
+<p><span class="math display">\[\pi = p \pm z_{\alpha /2} \sqrt{\frac{p (1 - p)}{n}}\]</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="random-variables-and-distributions.html#cb7-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)</span>
+<span id="cb7-2"><a href="random-variables-and-distributions.html#cb7-2" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> n)</span>
+<span id="cb7-3"><a href="random-variables-and-distributions.html#cb7-3" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span>z<span class="sc">*</span>se, z<span class="sc">*</span>se)</span></code></pre></div>
+<pre><code>## [1] 0.4520868 0.5060882</code></pre>
+<p>The Wald interval’s accuracy suffers when <span class="math inline">\(np&lt;5\)</span> or <span class="math inline">\(n(1-p)&lt;5\)</span> and it does not work at all when <span class="math inline">\(p = 0\)</span> or <span class="math inline">\(p = 1\)</span>. Option two is the <strong>Wilson</strong> method.</p>
+<p><span class="math display">\[\frac{p + \frac{z^2}{2n}}{1 + \frac{z^2}{n}} \pm \frac{z}{1 + \frac{z^2}{n}} \sqrt{\frac{p(1 - p)}{n} + \frac{z^2}{4n^2}}\]</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="random-variables-and-distributions.html#cb9-1" tabindex="-1"></a>est <span class="ot">&lt;-</span> (p <span class="sc">+</span> (z<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>n)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (z<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> n)</span>
+<span id="cb9-2"><a href="random-variables-and-distributions.html#cb9-2" tabindex="-1"></a>pm <span class="ot">&lt;-</span> z <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (z<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>n) <span class="sc">*</span> <span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n <span class="sc">+</span> (z<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">4</span><span class="sc">*</span>(n<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb9-3"><a href="random-variables-and-distributions.html#cb9-3" tabindex="-1"></a>est <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span>pm, pm)</span></code></pre></div>
+<pre><code>## [1] 0.4521869 0.5061098</code></pre>
+<p>This is what <code>prop.test(correct = FALSE)</code> calculates.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="random-variables-and-distributions.html#cb11-1" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> x, <span class="at">n =</span> n, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  x out of n, null probability 0.5
+## X-squared = 2.3004, df = 1, p-value = 0.1293
+## alternative hypothesis: true p is not equal to 0.5
+## 95 percent confidence interval:
+##  0.4521869 0.5061098
+## sample estimates:
+##         p 
+## 0.4790875</code></pre>
+<p>There is a second version of the Wilson interval that applies a “continuity correction” that aligns the “minimum coverage probability”, rather than the “average probability”, with the nominal value.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="random-variables-and-distributions.html#cb13-1" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> x, <span class="at">n =</span> n)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  x out of n, null probability 0.5
+## X-squared = 2.2175, df = 1, p-value = 0.1365
+## alternative hypothesis: true p is not equal to 0.5
+## 95 percent confidence interval:
+##  0.4518087 0.5064898
+## sample estimates:
+##         p 
+## 0.4790875</code></pre>
+<p>Finally, there is the Clopper-Pearson <strong>exact confidence interval</strong>. Clopper-Pearson inverts two single-tailed binomial tests at the desired alpha. This is a non-trivial calculation, so there is no easy formula to crank through. Just use the <code>binom.test()</code> function and pray no one asks for an explanation.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="random-variables-and-distributions.html#cb15-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> x, <span class="at">n =</span> n)</span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  x and n
+## number of successes = 630, number of trials = 1315, p-value = 0.1364
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.4517790 0.5064896
+## sample estimates:
+## probability of success 
+##              0.4790875</code></pre>
+<p>The expected probability of no one being a high-risk drinker is <span class="math inline">\(f(0;0.479) = \frac{1315!}{0!(1315-0)!} 0.479^0 (1-0.479)^{1315-0} = 0\)</span>. Use <code>dbinom()</code> for probability densities.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="random-variables-and-distributions.html#cb17-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">size =</span> n, <span class="at">p =</span> p)</span>
+<span id="cb17-2"><a href="random-variables-and-distributions.html#cb17-2" tabindex="-1"></a><span class="do">## [1] 0</span></span></code></pre></div>
+<p>The expected probability of <em>at least</em> half the population being a high-risk drinker, <span class="math inline">\(f(658, 0.479) = .065\)</span>. Use <code>pbinom()</code> for cumulative probabilities.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="random-variables-and-distributions.html#cb18-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> .<span class="dv">5</span><span class="sc">*</span>n, <span class="at">size =</span> n, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-2"><a href="random-variables-and-distributions.html#cb18-2" tabindex="-1"></a><span class="do">## [1] 0.06455096</span></span></code></pre></div>
+<p>The normal distribution is a good approximation when <span class="math inline">\(n\)</span> is large. The <span class="math inline">\(\lim_{n \rightarrow \infty} \mathrm{Bin}(n, \pi) = N(n\pi, n\pi(1−\pi)).\)</span></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="random-variables-and-distributions.html#cb19-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">0.5</span>, <span class="at">mean =</span> p, <span class="at">sd =</span> se, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-2"><a href="random-variables-and-distributions.html#cb19-2" tabindex="-1"></a><span class="do">## [1] 0.06450357</span></span></code></pre></div>
+<p>Suppose a second survey gets a slightly different result. The <em>high risk</em> = <code>Yes</code> falls from 630 (48%) to 600 (46%).</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="random-variables-and-distributions.html#cb20-1" tabindex="-1"></a>dat_bin2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-2"><a href="random-variables-and-distributions.html#cb20-2" tabindex="-1"></a>  <span class="at">subject =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1315</span>,</span>
+<span id="cb20-3"><a href="random-variables-and-distributions.html#cb20-3" tabindex="-1"></a>  <span class="at">high_risk =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Yes&quot;</span>, <span class="dv">600</span>), <span class="fu">rep</span>(<span class="st">&quot;No&quot;</span>, <span class="dv">715</span>)))</span>
+<span id="cb20-4"><a href="random-variables-and-distributions.html#cb20-4" tabindex="-1"></a>)</span>
+<span id="cb20-5"><a href="random-variables-and-distributions.html#cb20-5" tabindex="-1"></a>(dat2_tabyl <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">tabyl</span>(dat_bin2, high_risk))</span></code></pre></div>
+<pre><code>##  high_risk   n   percent
+##         No 715 0.5437262
+##        Yes 600 0.4562738</code></pre>
+<p>The two survey counts of <em>high risk</em> = “Yes” are independent random variables distributed <span class="math inline">\(X \sim \mathrm{Bin}(1315, .48)\)</span> and <span class="math inline">\(Y \sim \mathrm{Bin}(1315, .46)\)</span>. What is the probability that either variable is <span class="math inline">\(X \ge 650\)</span>?</p>
+<p>Let <span class="math inline">\(P(A) = P(X \le 650)\)</span> and <span class="math inline">\(P(B) = P(Y \le 650)\)</span>. Then <span class="math inline">\(P(A|B) = P(A) + P(B) - P(AB)\)</span>, and because the events are independent, <span class="math inline">\(P(AB) = P(A)P(B)\)</span>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="random-variables-and-distributions.html#cb22-1" tabindex="-1"></a>(p_a <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">650</span>, <span class="at">size =</span> <span class="dv">1315</span>, <span class="at">prob =</span> <span class="fl">0.48</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb22-2"><a href="random-variables-and-distributions.html#cb22-2" tabindex="-1"></a><span class="do">## [1] 0.1433791</span></span>
+<span id="cb22-3"><a href="random-variables-and-distributions.html#cb22-3" tabindex="-1"></a>(p_b <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">650</span>, <span class="at">size =</span> <span class="dv">1315</span>, <span class="at">prob =</span> <span class="fl">0.46</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb22-4"><a href="random-variables-and-distributions.html#cb22-4" tabindex="-1"></a><span class="do">## [1] 0.005868366</span></span>
+<span id="cb22-5"><a href="random-variables-and-distributions.html#cb22-5" tabindex="-1"></a>(p_a <span class="sc">+</span> p_b <span class="sc">-</span> (p_a <span class="sc">*</span> p_b))</span>
+<span id="cb22-6"><a href="random-variables-and-distributions.html#cb22-6" tabindex="-1"></a><span class="do">## [1] 0.1484061</span></span></code></pre></div>
+<p>Here’s an empirical test.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="random-variables-and-distributions.html#cb23-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-2"><a href="random-variables-and-distributions.html#cb23-2" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="dv">1315</span>, <span class="fl">0.48</span>),</span>
+<span id="cb23-3"><a href="random-variables-and-distributions.html#cb23-3" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="dv">1315</span>, <span class="fl">0.46</span>)</span>
+<span id="cb23-4"><a href="random-variables-and-distributions.html#cb23-4" tabindex="-1"></a>  )</span>
+<span id="cb23-5"><a href="random-variables-and-distributions.html#cb23-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">if_else</span>(df<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">650</span> <span class="sc">|</span> df<span class="sc">$</span>y <span class="sc">&gt;=</span> <span class="dv">650</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+<pre><code>## [1] 0.1579</code></pre>
+<p>A couple other points to remember:</p>
+<ul>
+<li>The Bernoulli distribution is a special case of the binomial with <span class="math inline">\(n = 1\)</span>.</li>
+<li>The binomial distribution assumes independent trials. If you sample <em>without replacement from a finite population</em>, use the hypergeometric distribution.</li>
+</ul>
+</div>
+<div id="hypergeometric" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Hypergeometric<a href="random-variables-and-distributions.html#hypergeometric" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>If <span class="math inline">\(X = k\)</span> is the count of successful events in a sample of size <span class="math inline">\(n\)</span> <em>without replacement</em> from a population of size <span class="math inline">\(N\)</span> containing <span class="math inline">\(K\)</span> successes, then <span class="math inline">\(X\)</span> is a random variable with a hypergeometric distribution</p>
+<p><span class="math display">\[f_X(k|N, K, n) = \frac{{{K}\choose{k}}{{N-K}\choose{n-k}}}{{N}\choose{n}}.\]</span></p>
+<p>with <span class="math inline">\(E(X)=n\frac{K}{N}\)</span> and <span class="math inline">\(Var(X) = n\frac{K}{N}\cdot\frac{N-k}{N}\cdot\frac{N-n}{N-1}\)</span>.</p>
+</blockquote>
+<p>The formula follows from the frequency table of the possible outcomes.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Sampled</th>
+<th>Not Sampled</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>success</td>
+<td>k</td>
+<td>K-k</td>
+<td>K</td>
+</tr>
+<tr class="even">
+<td>non-success</td>
+<td>n-k</td>
+<td>(N-K)-(n-k)</td>
+<td>N-K</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>n</td>
+<td>N-n</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<p>Here is a simple analysis of data from a hypergeometric process. What is the probability of selecting <span class="math inline">\(k = 14\)</span> red marbles from a sample of <span class="math inline">\(n = 20\)</span> taken from an urn containing <span class="math inline">\(K = 70\)</span> red marbles and <span class="math inline">\(N-K = 30\)</span> green marbles?</p>
+<p>Function <code>choose()</code> returns the binomial coefficient <span class="math inline">\({{n}\choose{k}} = \frac{n!}{k!(n-k)!}\)</span>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="random-variables-and-distributions.html#cb25-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">14</span>; n <span class="ot">&lt;-</span> <span class="dv">20</span>; N <span class="ot">&lt;-</span> <span class="dv">100</span>; K <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb25-2"><a href="random-variables-and-distributions.html#cb25-2" tabindex="-1"></a><span class="fu">choose</span>(K, k) <span class="sc">*</span> <span class="fu">choose</span>(N<span class="sc">-</span>K, n<span class="sc">-</span>k) <span class="sc">/</span> <span class="fu">choose</span>(N, n)</span></code></pre></div>
+<pre><code>## [1] 0.2140911</code></pre>
+<p>But of course you would never have to do it that way.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="random-variables-and-distributions.html#cb27-1" tabindex="-1"></a><span class="fu">dhyper</span>(<span class="at">x =</span> k, <span class="at">m =</span> K, <span class="at">n =</span> N<span class="sc">-</span>K, <span class="at">k =</span> n)</span></code></pre></div>
+<pre><code>## [1] 0.2140911</code></pre>
+<p>The expected value is 14 and variance is 9.7292929.</p>
+<p><img src="probability_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>The hypergeometric random variable is similar to the binomial random variable except that it applies to situations of sampling <em>without</em> replacement from a small population. As the population size increases, sampling without replacement converges to sampling <em>with</em> replacement, and the hypergeometric distribution converges to the binomial. What if the total population size had been 250? 500? 1000?</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="random-variables-and-distributions.html#cb29-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="random-variables-and-distributions.html#cb29-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">density =</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">size =</span> n, <span class="at">prob =</span> K <span class="sc">/</span> N)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="random-variables-and-distributions.html#cb29-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb29-4"><a href="random-variables-and-distributions.html#cb29-4" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density))</span>
+<span id="cb29-5"><a href="random-variables-and-distributions.html#cb29-5" tabindex="-1"></a>hyper <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-6"><a href="random-variables-and-distributions.html#cb29-6" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb29-7"><a href="random-variables-and-distributions.html#cb29-7" tabindex="-1"></a>  <span class="at">N_100 =</span> <span class="fu">dhyper</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">m =</span> K<span class="sc">*</span><span class="fl">1.0</span>, <span class="at">n =</span> (N<span class="sc">-</span>K)<span class="sc">*</span><span class="fl">1.0</span>, <span class="at">k =</span> n),</span>
+<span id="cb29-8"><a href="random-variables-and-distributions.html#cb29-8" tabindex="-1"></a>  <span class="at">N_250 =</span> <span class="fu">dhyper</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">m =</span> K<span class="sc">*</span><span class="fl">2.5</span>, <span class="at">n =</span> (N<span class="sc">-</span>K)<span class="sc">*</span><span class="fl">2.5</span>, <span class="at">k =</span> n),</span>
+<span id="cb29-9"><a href="random-variables-and-distributions.html#cb29-9" tabindex="-1"></a>  <span class="at">N_500 =</span> <span class="fu">dhyper</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">m =</span> K<span class="sc">*</span><span class="fl">5.0</span>, <span class="at">n =</span> (N<span class="sc">-</span>K)<span class="sc">*</span><span class="fl">5.0</span>, <span class="at">k =</span> n)</span>
+<span id="cb29-10"><a href="random-variables-and-distributions.html#cb29-10" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>x)</span>
+<span id="cb29-11"><a href="random-variables-and-distributions.html#cb29-11" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> hyper, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb29-12"><a href="random-variables-and-distributions.html#cb29-12" tabindex="-1"></a>  <span class="fu">labs</span>() <span class="sc">+</span></span>
+<span id="cb29-13"><a href="random-variables-and-distributions.html#cb29-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb29-14"><a href="random-variables-and-distributions.html#cb29-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-15"><a href="random-variables-and-distributions.html#cb29-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;P(X = k) when X ~ Hypergeometric(N, .7N, 20)&quot;</span>, <span class="at">color =</span> <span class="st">&quot;&quot;</span>, <span class="at">x =</span> <span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="poisson" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Poisson<a href="random-variables-and-distributions.html#poisson" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Poisson distributions are used to model the number of events occurring in a fixed period of time. In Poisson processes, events occur continuously and independently at a constant average rate. <a href="https://towardsdatascience.com/poisson-distribution-intuition-and-derivation-1059aeab90d">This blog</a> by Aerin Kim demonstrates how the Poisson distribution is related to the binomial distribution. The key is that the binomial distribution expresses the probability of <span class="math inline">\(X = k\)</span> events in <span class="math inline">\(n\)</span> trials when the probability of <em>one</em> event in <em>one</em> trial is <span class="math inline">\(p\)</span>. Sometimes you don’t know <span class="math inline">\(p\)</span>, but instead know that <span class="math inline">\(\lambda\)</span> events occur per some time interval. You could try to back into the binomial by shrinking the time interval so that <span class="math inline">\(k\)</span> could never be greater than one. The ratio <span class="math inline">\(p = \lambda / n\)</span> approaches the probability of observing one event in one trial as <span class="math inline">\(n \rightarrow \infty\)</span>. As <span class="math inline">\(n \rightarrow \infty\)</span>, <span class="math inline">\(p \rightarrow 0\)</span>. If you do this and follow the math, you wind up with the Poisson distribution!</p>
+<p><span class="math display">\[\begin{eqnarray}
+P(X = k) &amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} {n \choose k}p^k(1-p)^{n-k}\\
+&amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} \frac{n!}{(n-k)!k!} \left(\frac{\lambda}{n}\right)^k \left(1-\frac{\lambda}{n}\right)^{n-k}\\
+&amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} \frac{n!}{(n-k)!k!} \left(\frac{\lambda}{n}\right)^k \left(1-\frac{\lambda}{n}\right)^n\left(1-\frac{\lambda}{n}\right)^{-k}\\
+&amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} \frac{n!}{(n-k)!k!} \left(\frac{\lambda}{n}\right)^k \left(e^{-\lambda}\right)(1)\\
+&amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} \frac{n!}{(n-k)!n^k}  e^{-\lambda}\frac{\lambda^k}{k!} \\
+&amp;=&amp; e^{-\lambda}\frac{\lambda^k}{k!}
+\end{eqnarray}\]</span></p>
+<p>I didn’t get that last step, but I’ll take it on faith.</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the number of successes in <span class="math inline">\(n\)</span> (many) trials when the probability of success <span class="math inline">\(\lambda / n\)</span> is small, then <span class="math inline">\(X\)</span> is a random variable with a Poisson distribution <span class="math inline">\(X \sim \mathrm{Pois}(\lambda)\)</span></p>
+<p><span class="math display">\[f(X = k;\lambda) = \frac{e^{-\lambda} \lambda^k}{k!} \hspace{1cm} k \in (0, 1, ...), \hspace{2mm} \lambda &gt; 0\]</span></p>
+<p>with <span class="math inline">\(E(X)=\lambda\)</span> and <span class="math inline">\(\mathrm{Var}(X) = \lambda\)</span>.</p>
+</blockquote>
+<p>The Poisson distribution is also related to the exponential distribution. If the number of events per unit time follows a Poisson distribution, then the amount of time between events follows the exponential distribution.</p>
+<p>The Poisson likelihood function is</p>
+<p><span class="math display">\[L(\lambda; k) = \prod_{i=1}^N f(k_i; \lambda) = \prod_{i=1}^N \frac{e^{-\lambda} \lambda^k_i}{k_i !} = \frac{e^{-n \lambda} \lambda^{\sum k_i}}{\prod k_i}.\]</span></p>
+<p>The Poisson loglikelihood function is</p>
+<p><span class="math display">\[l(\lambda; k) = \sum_{i=1}^N k_i \log \lambda - n \lambda.\]</span></p>
+<p>The loglikelihood function is maximized at</p>
+<p><span class="math display">\[\hat{\lambda} = \sum_{i=1}^N k_i / n.\]</span></p>
+<p>Thus, for a Poisson sample, the MLE for <span class="math inline">\(\lambda\)</span> is just the sample mean.</p>
+<p>Consider data set <code>dat_pois</code> containing frequencies counts of goals scored per match during a soccer tournament. Totals ranged from 0 to 8.</p>
+<pre><code>##   goals freq
+## 1     0   23
+## 2     1   37
+## 3     2   20
+## 4     3   11
+## 5     4    2
+## 6     5    1
+## 7     6    0
+## 8     7    0
+## 9     8    1</code></pre>
+<p>The MLE of <span class="math inline">\(\lambda\)</span> is the sample weighted mean.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="random-variables-and-distributions.html#cb31-1" tabindex="-1"></a>(lambda <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(dat_pois<span class="sc">$</span>goals, dat_pois<span class="sc">$</span>freq))</span>
+<span id="cb31-2"><a href="random-variables-and-distributions.html#cb31-2" tabindex="-1"></a><span class="do">## [1] 1.378947</span></span></code></pre></div>
+<p>The 0.95 CI is <span class="math inline">\(\lambda \pm z_{.05/2} \sqrt{\lambda / n}\)</span></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="random-variables-and-distributions.html#cb32-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(dat_pois<span class="sc">$</span>freq)</span>
+<span id="cb32-2"><a href="random-variables-and-distributions.html#cb32-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb32-3"><a href="random-variables-and-distributions.html#cb32-3" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(lambda <span class="sc">/</span> n)</span>
+<span id="cb32-4"><a href="random-variables-and-distributions.html#cb32-4" tabindex="-1"></a>lambda <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span>z<span class="sc">*</span>se, <span class="sc">+</span>z<span class="sc">*</span>se)</span>
+<span id="cb32-5"><a href="random-variables-and-distributions.html#cb32-5" tabindex="-1"></a><span class="do">## [1] 1.142812 1.615082</span></span></code></pre></div>
+<p>The expected probability of scoring 2 goals in a match is <span class="math inline">\(\frac{e^{-1.38} 1.38^2}{2!} = 0.239\)</span>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="random-variables-and-distributions.html#cb33-1" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">lambda =</span> lambda)</span>
+<span id="cb33-2"><a href="random-variables-and-distributions.html#cb33-2" tabindex="-1"></a><span class="do">## [1] 0.2394397</span></span></code></pre></div>
+<p>The expected probability of scoring 2 to 4 goals in a match is</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="random-variables-and-distributions.html#cb34-1" tabindex="-1"></a><span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">lambda =</span> lambda) <span class="sc">-</span> </span>
+<span id="cb34-2"><a href="random-variables-and-distributions.html#cb34-2" tabindex="-1"></a>  <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">lambda =</span> lambda)</span>
+<span id="cb34-3"><a href="random-variables-and-distributions.html#cb34-3" tabindex="-1"></a><span class="do">## [1] 0.3874391</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="random-variables-and-distributions.html#cb35-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">events =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, </span>
+<span id="cb35-2"><a href="random-variables-and-distributions.html#cb35-2" tabindex="-1"></a>           <span class="at">pmf =</span> <span class="fu">dpois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, lambda), </span>
+<span id="cb35-3"><a href="random-variables-and-distributions.html#cb35-3" tabindex="-1"></a>           <span class="at">cdf =</span> <span class="fu">ppois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, lambda, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="random-variables-and-distributions.html#cb35-4" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-5"><a href="random-variables-and-distributions.html#cb35-5" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(events), <span class="at">y =</span> pmf)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="random-variables-and-distributions.html#cb35-6" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(events), <span class="at">label =</span> <span class="fu">round</span>(pmf, <span class="dv">3</span>), <span class="at">y =</span> pmf <span class="sc">+</span> <span class="fl">0.01</span>),</span>
+<span id="cb35-7"><a href="random-variables-and-distributions.html#cb35-7" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">vjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="random-variables-and-distributions.html#cb35-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> events, <span class="at">y =</span> cdf<span class="sc">/</span><span class="dv">2</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-9"><a href="random-variables-and-distributions.html#cb35-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">5</span>), </span>
+<span id="cb35-10"><a href="random-variables-and-distributions.html#cb35-10" tabindex="-1"></a>                     <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">*</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;Cum Prob&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="random-variables-and-distributions.html#cb35-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;PMF and CDF of Poisson Distribution&quot;</span>,</span>
+<span id="cb35-12"><a href="random-variables-and-distributions.html#cb35-12" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">&quot;Pois(&quot;</span>, scales<span class="sc">::</span><span class="fu">comma</span>(lambda, <span class="at">accuracy =</span> .<span class="dv">01</span>), <span class="st">&quot;)&quot;</span>), </span>
+<span id="cb35-13"><a href="random-variables-and-distributions.html#cb35-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X = k&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>How well does the Poisson distribution fit the <code>dat_pois</code> data set?</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="random-variables-and-distributions.html#cb36-1" tabindex="-1"></a>dat_pois <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="random-variables-and-distributions.html#cb36-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred =</span> n <span class="sc">*</span> <span class="fu">dpois</span>(<span class="at">x =</span> goals, <span class="at">lambda =</span> lambda)) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="random-variables-and-distributions.html#cb36-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">obs =</span> freq) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="random-variables-and-distributions.html#cb36-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>goals) <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="random-variables-and-distributions.html#cb36-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> goals, <span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="random-variables-and-distributions.html#cb36-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-7"><a href="random-variables-and-distributions.html#cb36-7" tabindex="-1"></a><span class="co">#  geom_smooth(se = FALSE) +</span></span>
+<span id="cb36-8"><a href="random-variables-and-distributions.html#cb36-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="random-variables-and-distributions.html#cb36-9" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb36-10"><a href="random-variables-and-distributions.html#cb36-10" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Poisson Dist: Observed vs Expected&quot;</span>,</span>
+<span id="cb36-11"><a href="random-variables-and-distributions.html#cb36-11" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb36-12"><a href="random-variables-and-distributions.html#cb36-12" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;frequencey&quot;</span></span>
+<span id="cb36-13"><a href="random-variables-and-distributions.html#cb36-13" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>It seems to fit pretty good! Run a chi-square goodness-of-fit test to confirm. The test requires an expected frequency of at least 5 per cell. Cells 4 through 8 are under 5, so you need to lump them.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="random-variables-and-distributions.html#cb37-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> dat_pois <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="random-variables-and-distributions.html#cb37-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">goals =</span> <span class="fu">if_else</span>(goals <span class="sc">&gt;=</span> <span class="dv">4</span>, <span class="dv">4</span>, goals)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="random-variables-and-distributions.html#cb37-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>, <span class="at">freq =</span> <span class="fu">sum</span>(freq)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="random-variables-and-distributions.html#cb37-4" tabindex="-1"></a>  <span class="fu">pull</span>(freq)</span>
+<span id="cb37-5"><a href="random-variables-and-distributions.html#cb37-5" tabindex="-1"></a>p <span class="ot">&lt;-</span> dat_pois <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="random-variables-and-distributions.html#cb37-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">dpois</span>(<span class="at">x =</span> goals, <span class="at">lambda =</span> lambda)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="random-variables-and-distributions.html#cb37-7" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">goals =</span> <span class="fu">if_else</span>(goals <span class="sc">&gt;=</span> <span class="dv">4</span>, <span class="dv">4</span>, goals)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="random-variables-and-distributions.html#cb37-8" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>, <span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-9"><a href="random-variables-and-distributions.html#cb37-9" tabindex="-1"></a>  <span class="fu">pull</span>(p)</span>
+<span id="cb37-10"><a href="random-variables-and-distributions.html#cb37-10" tabindex="-1"></a>(chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="at">x =</span> x, <span class="at">p =</span> p, <span class="at">rescale.p =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  x
+## X-squared = 1.0414, df = 4, p-value = 0.9035</code></pre>
+<p><img src="probability_files/figure-html/unnamed-chunk-28-1.png" width="480" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>A chi-square goodness-of-fit test was conducted to determine whether the matches had the same proportion of goals as the theoretical Poisson distribution. The minimum expected frequency was 5. The chi-square goodness-of-fit test indicated that the number of matches with 0, 1, 2, 3, or 4 or more goals was <em>not</em> statistically significantly different from the proportions expected in the theoretical Poisson distribution (<span class="math inline">\(\chi^2\)</span>(4) = 1.041, <em>p</em> = 0.903).</p>
+</blockquote>
+<p>As demonstrated at the beginning of this section, the <span class="math inline">\(\mathrm{Pois}(\lambda)\)</span> approaches the <span class="math inline">\(\mathrm{Bin}(n, \pi)\)</span> where <span class="math inline">\(\lambda = n\pi\)</span> when <span class="math inline">\(n \rightarrow \infty\)</span> and <span class="math inline">\(\pi \rightarrow 0\)</span>. The Poisson is a useful (computationally inexpensive) approximation to the binomial when <span class="math inline">\(n \ge 20)\)</span> and <span class="math inline">\(\pi \le 0.05\)</span>. For example, suppose a baseball player has a <span class="math inline">\(\pi = .03\)</span> chance of hitting a home run. What is the probability of hitting <span class="math inline">\(X \ge 20\)</span> home runs in <span class="math inline">\(n = 500\)</span> at-bats? This is a binomial process because the sample size is fixed.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="random-variables-and-distributions.html#cb39-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">prob =</span> <span class="fl">0.03</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.07979678</code></pre>
+<p>But <span class="math inline">\(n\)</span> is large and <span class="math inline">\(\pi\)</span> is small, so the Poisson distribution works well too.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="random-variables-and-distributions.html#cb41-1" tabindex="-1"></a><span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">0.03</span> <span class="sc">*</span> <span class="dv">500</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.08297091</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="random-variables-and-distributions.html#cb43-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb43-2"><a href="random-variables-and-distributions.html#cb43-2" tabindex="-1"></a>p <span class="ot">=</span> <span class="fl">0.03</span></span>
+<span id="cb43-3"><a href="random-variables-and-distributions.html#cb43-3" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span></span>
+<span id="cb43-4"><a href="random-variables-and-distributions.html#cb43-4" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb43-5"><a href="random-variables-and-distributions.html#cb43-5" tabindex="-1"></a>  <span class="at">events =</span> x, </span>
+<span id="cb43-6"><a href="random-variables-and-distributions.html#cb43-6" tabindex="-1"></a>  <span class="at">Poisson =</span> <span class="fu">dpois</span>(<span class="at">x =</span> x, <span class="at">lambda =</span> p <span class="sc">*</span> n),</span>
+<span id="cb43-7"><a href="random-variables-and-distributions.html#cb43-7" tabindex="-1"></a>  <span class="at">Binomial =</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x, <span class="at">size =</span> n, <span class="at">p =</span> p)</span>
+<span id="cb43-8"><a href="random-variables-and-distributions.html#cb43-8" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-9"><a href="random-variables-and-distributions.html#cb43-9" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>events) <span class="sc">%&gt;%</span></span>
+<span id="cb43-10"><a href="random-variables-and-distributions.html#cb43-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> events, <span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb43-11"><a href="random-variables-and-distributions.html#cb43-11" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb43-12"><a href="random-variables-and-distributions.html#cb43-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb43-13"><a href="random-variables-and-distributions.html#cb43-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Pois(.03*500) vs. Bin(500, .03)&quot;</span>,</span>
+<span id="cb43-14"><a href="random-variables-and-distributions.html#cb43-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Poisson approximation to binomial.&quot;</span>,</span>
+<span id="cb43-15"><a href="random-variables-and-distributions.html#cb43-15" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Events&quot;</span>,</span>
+<span id="cb43-16"><a href="random-variables-and-distributions.html#cb43-16" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>,</span>
+<span id="cb43-17"><a href="random-variables-and-distributions.html#cb43-17" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>When the observed variance is greater than <span class="math inline">\(\lambda\)</span> (overdispersion), the Negative Binomial distribution can be used instead of Poisson.</p>
+</div>
+<div id="exponential" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Exponential<a href="random-variables-and-distributions.html#exponential" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Exponential distributions are usually used to model the elapsed time between events in a Poisson process.</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the time to the next successful event in a Poisson process where the average rate of events is <span class="math inline">\(\lambda\)</span>, then <span class="math inline">\(X\)</span> is a random variable with an exponential distribution <span class="math inline">\(X \sim \mathrm{Exp}(\lambda)\)</span></p>
+<p><span class="math display">\[ f(X = x; \lambda) =
+\begin{cases}
+\lambda e^{-\lambda x}, &amp; \mbox{if } x \ge 0 \\
+0, &amp; \mbox{if } x &lt; 0
+\end{cases} \]</span></p>
+<p>with <span class="math inline">\(E(X)=1/\lambda\)</span> and <span class="math inline">\(Var(X) = 1/\lambda^2\)</span>.</p>
+</blockquote>
+<p><a href="https://towardsdatascience.com/what-is-exponential-distribution-7bdd08590e2a">This blog</a> by Aerin Kim demonstrates how the exponential distribution is related to the Poisson distribution. The key is that the probability of <em>no</em> event in 1 time period is <span class="math inline">\(P(X = 0; \lambda) = e^{-\lambda}\frac{\lambda^0}{0!} = e^{-\lambda}\)</span>, so the probability of no events in <em>t</em> time periods is <span class="math inline">\(P(X&gt;t) =e^{-\lambda t}\)</span> because the <span class="math inline">\(t\)</span> periods are independent. The CDF is <span class="math inline">\(P(X \le t) =1 - e^{-\lambda t}\)</span>. And the PDF is its derivative, <span class="math inline">\(P(X = t) = \lambda e^{-\lambda t}\)</span></p>
+<p>Kim shows how the exponential distribution is “memory-less”, meaning the <span class="math inline">\(P(X &gt; x_1 | X &gt; x_0) = P(X &gt; x_1 - x_0).\)</span> E.g., the probability a 9-year old machine fails after 12 years is the same as the probability a 0-year old machine fails after 3 years. If that seems like a bad model, turn to something with increasing hazard rates, like Weibull. But oftentimes it <em>is</em> a good assumption, like the probability of a car accident (this is the context in which you might refer to <span class="math inline">\(\lambda\)</span> as the hazard rate).</p>
+<p>Suppose the average rate of bus arrivals is one per 15 minutes, a Poisson process. The probability less than 10 minutes elapses between buses is <span class="math inline">\(P(X \le 10) = 1 - e^{-1/15 \cdot 10} = .486.\)</span></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="random-variables-and-distributions.html#cb44-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">min =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">60</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">pexp</span>(min, <span class="dv">1</span><span class="sc">/</span><span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="random-variables-and-distributions.html#cb44-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> min)) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="random-variables-and-distributions.html#cb44-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> p)) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="random-variables-and-distributions.html#cb44-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">pexp</span>(<span class="dv">10</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">15</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="random-variables-and-distributions.html#cb44-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">10</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="random-variables-and-distributions.html#cb44-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="random-variables-and-distributions.html#cb44-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="random-variables-and-distributions.html#cb44-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="random-variables-and-distributions.html#cb44-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;P(X&lt;=10) = .486&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>90% of buses arrive within 34.5 minutes.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="random-variables-and-distributions.html#cb45-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">min =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">60</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">pexp</span>(min, <span class="dv">1</span><span class="sc">/</span><span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="random-variables-and-distributions.html#cb45-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> min)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="random-variables-and-distributions.html#cb45-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> p)) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="random-variables-and-distributions.html#cb45-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.90</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="random-variables-and-distributions.html#cb45-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">qexp</span>(.<span class="dv">90</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">15</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb45-6"><a href="random-variables-and-distributions.html#cb45-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb45-7"><a href="random-variables-and-distributions.html#cb45-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="random-variables-and-distributions.html#cb45-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb45-9"><a href="random-variables-and-distributions.html#cb45-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;P(X&lt;=34.5) = .90&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>The average time for two buses to arrive is <span class="math inline">\(2 \cdot E[X] = 2 \cdot \frac{1}{1/15} = 30\)</span> minutes.</p>
+</div>
+<div id="gamma" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Gamma<a href="random-variables-and-distributions.html#gamma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Gamma distributions are usually used to model wait times until events. Unlike the exponential distribution which models the time until the first event, gamma models the time until the <span class="math inline">\(\alpha\)</span>th or <span class="math inline">\(k\)</span>th event.</p>
+<p>Before you learn about the gamma distribution, you should understand the gamma <em>function</em>, <span class="math inline">\(\Gamma(n) = (n-1)!\)</span>, because it is part of the definition. <span class="math inline">\(\Gamma(n)\)</span> extends the factorial from nonnegative whole numbers to a subset of the real numbers. The generalization of the factorial is used in combinatorics and probability problems. Some probability distributions are defined in terms of the gamma function, including the student <em>t</em>, chi-square, and gamma distribution.</p>
+<p>The gamma distribution is a two-parameter distribution. You will encounter two forms of the gamma distribution.</p>
+<ul>
+<li><strong>shape</strong> <span class="math inline">\(k\)</span> and <strong>scale</strong> <span class="math inline">\(\theta\)</span>.</li>
+<li><strong>shape</strong> <span class="math inline">\(\alpha = k\)</span> and <strong>rate</strong> <span class="math inline">\(\beta = 1/\theta\)</span>.</li>
+</ul>
+<p>The probability density function for the shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span> form is</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the interval until the <span class="math inline">\(k^{th}\)</span> successful event when the average interval is <span class="math inline">\(\theta\)</span>, then <span class="math inline">\(X\)</span> is a random variable with a gamma distribution <span class="math inline">\(X \sim \mathrm{\Gamma}(\alpha, \theta)\)</span>. The probability of an interval of <span class="math inline">\(X = x\)</span> is</p>
+<p><span class="math display">\[f(x; k, \theta) = \frac{x^{k-1} e^{-\frac{x}{\theta}}}{\theta^k \Gamma(k)} \hspace{1cm} x, k, \theta &gt; 0.\]</span></p>
+<p>with <span class="math inline">\(E(X) = k \theta\)</span> and variance <span class="math inline">\(Var(X) = k \theta^2\)</span>.</p>
+</blockquote>
+<p>The probability density function for the shape <span class="math inline">\(\alpha\)</span> and rate <span class="math inline">\(\beta\)</span> form is</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the interval until the <span class="math inline">\(\alpha^{th}\)</span> successful event when events occur at a rate of <span class="math inline">\(\beta\)</span> times per interval, then <span class="math inline">\(X\)</span> is a random variable with a gamma distribution <span class="math inline">\(X \sim \mathrm{\Gamma}(k, \beta)\)</span>. The probability of an interval of <span class="math inline">\(X = x\)</span> is</p>
+<p><span class="math display">\[f(x; \alpha, \beta) = \frac{\beta^\alpha x^{\alpha-1}e^{-\beta x}}{\Gamma(k)} \hspace{1cm} x, \alpha, \beta &gt; 0.\]</span></p>
+<p>with <span class="math inline">\(E(X) = \alpha / \beta\)</span> and variance <span class="math inline">\(Var(X) = \alpha / \beta^2\)</span>.</p>
+</blockquote>
+<p>Gamma is the conjugate prior to the Poisson, exponential, normal, Pareto, and gamma likelihood distributions.</p>
+<p><strong>Example</strong>. On average, someone sends a money order once per 15 minutes (<span class="math inline">\(\theta = .25\)</span>). What is the probability someone sends <span class="math inline">\(k = 10\)</span> money orders in less than <span class="math inline">\(x = 3\)</span> hours?* This is a shape/scale formulation.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="random-variables-and-distributions.html#cb46-1" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="fl">0.25</span>)</span>
+<span id="cb46-2"><a href="random-variables-and-distributions.html#cb46-2" tabindex="-1"></a><span class="do">## [1] 0.7576078</span></span></code></pre></div>
+<p>You could equally express it in a shape/rate formulation by saying “4 money orders are sent per hour”.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="random-variables-and-distributions.html#cb47-1" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">4</span>)</span>
+<span id="cb47-2"><a href="random-variables-and-distributions.html#cb47-2" tabindex="-1"></a><span class="do">## [1] 0.7576078</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="random-variables-and-distributions.html#cb48-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1000</span> <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="random-variables-and-distributions.html#cb48-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">pgamma</span>(<span class="at">q =</span> x, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> .<span class="dv">25</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="random-variables-and-distributions.html#cb48-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> prob)) <span class="sc">+</span></span>
+<span id="cb48-4"><a href="random-variables-and-distributions.html#cb48-4" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb48-5"><a href="random-variables-and-distributions.html#cb48-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">3</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="random-variables-and-distributions.html#cb48-6" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">pgamma</span>(<span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> .<span class="dv">25</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb48-7"><a href="random-variables-and-distributions.html#cb48-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb48-8"><a href="random-variables-and-distributions.html#cb48-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb48-9"><a href="random-variables-and-distributions.html#cb48-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;P(X = 3, alpha = 10, theta = .25) = .758&quot;</span>,</span>
+<span id="cb48-10"><a href="random-variables-and-distributions.html#cb48-10" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of 10 events in 3 hours when the mean time to event is .25 hours.&quot;</span>,</span>
+<span id="cb48-11"><a href="random-variables-and-distributions.html#cb48-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Interval (x) (hours)&quot;</span>,</span>
+<span id="cb48-12"><a href="random-variables-and-distributions.html#cb48-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;pgamma&quot;</span>) </span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>References: <a href="https://towardsdatascience.com/gamma-distribution-intuition-derivation-and-examples-55f407423840">Arein Kim</a>.</p>
+</div>
+<div id="beta" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Beta<a href="random-variables-and-distributions.html#beta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The beta distribution, <span class="math inline">\(\mathrm{Beta}(\alpha, \beta)\)</span>, is a family of distributions used to model probabilities. In Bayesian inference, it is frequently the conjugate prior distribution for the Bernoulli, binomial, negative binomial, and geometric distributions. When the beta distribution is used as the conjugate prior, the posterior distribution is also a beta distribution, greatly reducing the complexity of the analysis. After accumulating additional evidence, you simply adjust the <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> parameters.</p>
+<blockquote>
+<p>If <span class="math inline">\(P\)</span> is the probability of success in a random process then <span class="math inline">\(P\)</span> may be expressed as a random variable with a beta distribution <span class="math inline">\(P \sim \mathrm{Beta}(\alpha, \beta)\)</span>. The probability that <span class="math inline">\(P = p\)</span> is</p>
+<p><span class="math display">\[f(p; \alpha, \beta) = \frac{p^{\alpha-1} (1-p)^{\beta-1}}{\mathrm{B}(\alpha, \beta)}, \hspace{1cm} \mathrm{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}.\]</span></p>
+<p>with <span class="math inline">\(E(X) = \frac{\alpha}{\alpha + \beta}\)</span>.</p>
+</blockquote>
+<p>The <span class="math inline">\(\mathrm{B}(\alpha, \beta)\)</span> is a normalization constant that causes the pdf to integrate to 1 over the range of <span class="math inline">\(p\)</span>, <span class="math inline">\(\int_0^1f(p)dp = 1.\)</span></p>
+<p><span class="math inline">\(\mathrm{Beta}(1, 1)\)</span> expresses a uniform probability density, the expression of complete ignorance of the correct prior distribution.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="random-variables-and-distributions.html#cb49-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">p =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">01</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="random-variables-and-distributions.html#cb49-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Beta =</span> <span class="fu">dbeta</span>(p, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="random-variables-and-distributions.html#cb49-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> Beta)) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="random-variables-and-distributions.html#cb49-4" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb49-5"><a href="random-variables-and-distributions.html#cb49-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Beta(1, 1) is the uniform probability density.&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><span class="math inline">\(\mathrm{Beta}(5, 5)\)</span> is a symmetric probability; <span class="math inline">\(\mathrm{Beta}(10, 10)\)</span> is also symmetric, but with smaller variance. In general, the strength of the prior increases with the sum of <span class="math inline">\(\alpha + \beta\)</span>.</p>
+<p><img src="probability_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>The distribution shifts to the left if <span class="math inline">\(\beta\)</span> &gt; <span class="math inline">\(\alpha\)</span> and right if <span class="math inline">\(\alpha\)</span> &gt; <span class="math inline">\(\beta\)</span>.</p>
+<p><img src="probability_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>If one of the values is &lt; 1, the curve flips toward <span class="math inline">\(\infty\)</span> at the extreme. <span class="math inline">\(\alpha\)</span> or <span class="math inline">\(\beta\)</span> is usually 0.5 to denote near certainty.</p>
+<p><img src="probability_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+</div>
+<div id="normal" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Normal<a href="random-variables-and-distributions.html#normal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Under the central limit theorem, if we take samples from a random variable and calculate a summary statistic for each sample, that statistic is itself a random variable, and its mean converges to the true population statistic with more and more sampling.</p>
+<p>The standard deviation of a sampled statistic is called the <em>standard error</em> of that statistic. In the case of the sampled mean, it is</p>
+<p><span class="math display">\[SE = \frac{\sigma}{\sqrt{n}}\]</span></p>
+</div>
+<div id="student-t" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Student t<a href="random-variables-and-distributions.html#student-t" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <em>t</em>-distribution is essentially an approximation of the normal distribution acknowledging that we only have a sample estimate of the true population standard deviation in how we calculate the standard error.</p>
+</div>
+<div id="weibull" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Weibull<a href="random-variables-and-distributions.html#weibull" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Weibull distributions are used in time-to-event models.</p>
+<blockquote>
+<p>If <span class="math inline">\(X\)</span> is the time to failure in a process in which the failure rate is proportional to a power of time defined by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\lambda\)</span> parameters, then <span class="math inline">\(X\)</span> is a random variable with a Weibull distribution <span class="math inline">\(X \sim \mathrm{WB}(k, \lambda)\)</span></p>
+<p><span class="math display">\[ f(X = x; k, \lambda) = \begin{cases}
+\frac{k}{\lambda} \left(\frac{x}{\lambda}\right)^{k-1} e^{-(x / \lambda)^k}, &amp; x \ge 0 \\
+0, &amp; x &lt; 0
+\end{cases}\]</span></p>
+</blockquote>
+<p><span class="math inline">\(k\)</span> is called the <em>hazard rate</em>. If <em>k</em> &lt; 1 the failure rate decreases over time, as is the case with significant infant mortality or defective items. If <em>k</em> = 1 the failure rate is constant, as when external event cause failure. If <em>k</em> &gt; 1 the failure rate accelerates, as with aging processes.</p>
+<p>There are several alternative parameterizations (<a href="https://en.wikipedia.org/wiki/Weibull_distribution">Wikipedia</a>). The common one for survival analysis replaces the scale parameter with a rate parameter <span class="math inline">\(\beta = 1 / \lambda\)</span>. Then for <em>x</em> <span class="math inline">\(\ge\)</span> 0,</p>
+<p><span class="math display">\[f(X = x; k, \beta) = \beta k (\beta x)^{k-1} e^{-(\beta x)^k}\]</span>
+with cumulative distribution function
+<span class="math display">\[F(x; k, \beta) = 1 - e^{-(\beta x)^k}\]</span>
+and hazard function
+<span class="math display">\[h(x; k, \beta) = \beta k (\beta x)^{k-1}.\]</span></p>
+<p>The “survival curve” is the compliment to the CDF:
+<span class="math display">\[\begin{eqnarray}
+S(x; k, \beta) &amp;=&amp; 1 - F(x; k, \beta) \\
+&amp;=&amp; e^{-(\beta x)^k}
+\end{eqnarray}\]</span></p>
+<p>The probability of failing at time <span class="math inline">\(x = t\)</span> is the probability of surviving to time time multiplied by the hazard of failing when <span class="math inline">\(x = t\)</span>, <span class="math inline">\(f(t; k, \beta) = S(t; k, \beta) \cdot h(t; k, \beta)\)</span>.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="random-variables-and-distributions.html#cb50-1" tabindex="-1"></a><span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="at">from =</span> .<span class="dv">05</span>, <span class="at">to =</span> <span class="fl">2.5</span>, <span class="at">by =</span> .<span class="dv">01</span>),</span>
+<span id="cb50-2"><a href="random-variables-and-distributions.html#cb50-2" tabindex="-1"></a>                   <span class="at">k =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="random-variables-and-distributions.html#cb50-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f =</span> <span class="fu">dweibull</span>(x, k),</span>
+<span id="cb50-4"><a href="random-variables-and-distributions.html#cb50-4" tabindex="-1"></a>         <span class="at">F =</span> <span class="fu">pweibull</span>(x, k),</span>
+<span id="cb50-5"><a href="random-variables-and-distributions.html#cb50-5" tabindex="-1"></a>         <span class="at">S =</span> <span class="fu">pweibull</span>(x, k, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb50-6"><a href="random-variables-and-distributions.html#cb50-6" tabindex="-1"></a>         <span class="at">h =</span> f <span class="sc">/</span> S) <span class="sc">%&gt;%</span></span>
+<span id="cb50-7"><a href="random-variables-and-distributions.html#cb50-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(f<span class="sc">:</span>h)) <span class="sc">%&gt;%</span></span>
+<span id="cb50-8"><a href="random-variables-and-distributions.html#cb50-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> value, <span class="at">color =</span> <span class="fu">factor</span>(k))) <span class="sc">+</span></span>
+<span id="cb50-9"><a href="random-variables-and-distributions.html#cb50-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb50-10"><a href="random-variables-and-distributions.html#cb50-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-11"><a href="random-variables-and-distributions.html#cb50-11" tabindex="-1"></a>  <span class="fu">scale_colour_hue</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">270</span>)) <span class="sc">+</span></span>
+<span id="cb50-12"><a href="random-variables-and-distributions.html#cb50-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-13"><a href="random-variables-and-distributions.html#cb50-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="st">&quot;k&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Weibull (lambda = 1))&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>More <a href="https://www.weibull.com/basics/lifedata.htm">here</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["probability.pdf", "probability.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

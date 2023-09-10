@@ -1,0 +1,16 @@
+intro
+random-variables-and-distributions
+bernoulli
+binomial
+hypergeometric
+poisson
+exponential
+gamma
+beta
+normal
+student-t
+weibull
+methods
+applications
+example-one
+example-two
