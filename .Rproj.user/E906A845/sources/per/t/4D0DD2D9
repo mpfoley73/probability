@@ -1,0 +1,28 @@
+{
+    "id": "4D0DD2D9",
+    "path": "~/GitHub/probability/02-distributions.Rmd",
+    "project_path": "02-distributions.Rmd",
+    "type": "r_markdown",
+    "hash": "664628108",
+    "contents": "",
+    "dirty": false,
+    "created": 1694510813759.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "cursorPosition": "506,0",
+        "scrollLine": "503",
+        "last_setup_crc32": ""
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1694597559,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1694597559954,
+    "read_only": false,
+    "read_only_alternatives": []
+}
