@@ -1,10 +1,18 @@
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(glue)
+library(scales)
 library(patchwork)
 ```
 
 # Random Variables and Distributions
+
+Consider two random variables, $x$ and $y$, with corresponding probability density functions (PDF), $f(x) and $f(y). Two properties apply to a PDF: $f(x) \ge 0$ for all $x$, and $\int_{-\infty}^{\infty} f(x) dx = 1$. Also,
+
+- The cumulative density function (CDF) is $F(x) = \int_{-\infty}^{\infty} f(x) dx$.
+- The joint distribution of $x$ and $y$ is $f(x, y) = f(x|y)f(y) = f(y|x)f(x)$ where $f(x|y)$ is called the _conditional PDF_.
+- The marginal PDF is $f(x) = \int_{-\infty}^{\infty} f(x, y) dy$.
+- The chain rule: $f(x_1, x_2, x_3, \ldots, x_k) = f(x_1| x_2, x_3, \ldots, x_k) f(x_2 | x_3, \ldots, x_k) \cdots f(x_k)$
 
 Given a distribution function $f(x)$, its integral over the domain of $x$ sums to 1, $\int {f(x)} dx = 1$. The expected value of random variable $X$ with distribution function $f(x)$ is $E[X] = \int x \cdot f(x) dx$. The variance of $x$ is $Var(X) = E[(X - E[X])^2] = \int x^2 \cdot f(x) dx$. Alternatively $Var(X) = E[X^2] - E[X]^2$.
 
@@ -444,8 +452,6 @@ data.frame(min = 0:60) %>% mutate(p = pexp(min, 1/15)) %>%
 
 The average time for two buses to arrive is $2 \cdot E[X] = 2 \cdot \frac{1}{1/15} = 30$ minutes.
 
-
-
 ## Gamma
 
 Gamma distributions are usually used to model wait times until events. Unlike the exponential distribution which models the time until the first event, gamma models the time until the $\alpha$th or $k$th event.
@@ -459,7 +465,7 @@ The gamma distribution is a two-parameter distribution. You will encounter two f
 
 The probability density function for the shape $k$ and scale $\theta$ form is
 
-> If $X$ is the interval until the $k^{th}$ successful event when the average interval is $\theta$, then $X$ is a random variable with a gamma distribution $X \sim \mathrm{\Gamma}(\alpha, \theta)$. The probability of an interval of $X = x$ is
+> If $X$ is the interval until the $k^{th}$ successful event when the average interval is $\theta$, then $X$ is a random variable with a gamma distribution $X \sim \mathrm{\Gamma}(k, \theta)$. The probability of an interval of $X = x$ is
 >
 >$$f(x; k, \theta) = \frac{x^{k-1} e^{-\frac{x}{\theta}}}{\theta^k \Gamma(k)} \hspace{1cm} x, k, \theta > 0.$$
 >
@@ -467,40 +473,32 @@ The probability density function for the shape $k$ and scale $\theta$ form is
 
 The probability density function for the shape $\alpha$ and rate $\beta$ form is
 
-> If $X$ is the interval until the $\alpha^{th}$ successful event when events occur at a rate of $\beta$ times per interval, then $X$ is a random variable with a gamma distribution $X \sim \mathrm{\Gamma}(k, \beta)$. The probability of an interval of $X = x$ is
+> If $X$ is the interval until the $\alpha^{th}$ successful event when events occur at a rate of $\beta$ times per interval, then $X$ is a random variable with a gamma distribution $X \sim \mathrm{\Gamma}(\alpha, \beta)$. The probability of an interval of $X = x$ is
 >
-> $$f(x; \alpha, \beta) = \frac{\beta^\alpha x^{\alpha-1}e^{-\beta x}}{\Gamma(k)} \hspace{1cm} x, \alpha, \beta > 0.$$
+> $$f(x; \alpha, \beta) = \frac{\beta^\alpha x^{\alpha-1}e^{-\beta x}}{\Gamma(\alpha)} \hspace{1cm} x, \alpha, \beta > 0.$$
 >
 > with $E(X) = \alpha / \beta$ and variance $Var(X) = \alpha / \beta^2$.
 
 Gamma is the conjugate prior to the Poisson, exponential, normal, Pareto, and gamma likelihood distributions.
 
-**Example**. On average, someone sends a money order once per 15 minutes ($\theta = .25$). What is the probability someone sends $k = 10$ money orders in less than $x = 3$ hours?* This is a shape/scale formulation.
+**Example**. On average, someone sends a money order once per 15 minutes. What is the probability someone sends 10 money orders in less than 3 hours? The shape/scale formulation is $x = 3$, $k = 10$, and $\theta = .25$ hours elapsed per event. The shape/rate formulation is $x = 3$, $\alpha = 10$, and $\beta = 4$ events per hour. In `pgamma()` below, just remember that scale is the inverse of rate.
 
 ```{r collapse=TRUE}
-pgamma(q = 3, shape = 10, scale = 0.25)
-```
+(p <- pgamma(q = 3, shape = 10, scale = 0.25))
 
-You could equally express it in a shape/rate formulation by saying "4 money orders are sent per hour".
-
-```{r collapse=TRUE}
-pgamma(q = 3, shape = 10, scale = 1 / 4)
-```
-
-
-```{r message=FALSE, warning=FALSE}
-data.frame(x = 0:1000 / 100) %>%
-  mutate(prob = pgamma(q = x, shape = 10, scale = .25, lower.tail = TRUE)) %>%
-ggplot(aes(x = x, y = prob)) +
-  geom_line() +
-  geom_vline(xintercept = 3, linetype = 2) +
-  geom_hline(yintercept = pgamma(3, shape = 10, scale = .25), linetype = 2) +
+tibble(
+  x = seq(0, 10, by = .1),
+  prob = pgamma(q = x, shape = 10, scale = .25, lower.tail = TRUE)
+) %>%
+  ggplot() +
+  geom_line(aes(x = x, y = prob)) +
+  geom_segment(aes(x = 3, xend = 3, y = 0, yend = p), linetype = 2) +
+  geom_segment(aes(x = 0, xend = 3, y = p, yend = p), linetype = 2) +
   scale_x_continuous(breaks = 0:10) +
+  scale_y_continuous(breaks = c(0, p, 1), labels = percent_format(1)) +
   theme(panel.grid.minor = element_blank()) +
-  labs(title = "P(X = 3, alpha = 10, theta = .25) = .758",
-       subtitle = "Probability of 10 events in 3 hours when the mean time to event is .25 hours.",
-       x = "Interval (x) (hours)",
-       y = "pgamma") 
+  labs(title = "Prob. of 10 events in 3 hrs when mean time to event is .25 hrs.",
+       x = "Interval (x) (hours)", y = "pgamma") 
 
 ```
 

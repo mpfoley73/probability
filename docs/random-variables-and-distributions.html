@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-10" />
+<meta name="date" content="2023-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,6 +184,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="random-variables-and-distributions" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Random Variables and Distributions<a href="random-variables-and-distributions.html#random-variables-and-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Consider two random variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with corresponding probability density functions (PDF), $f(x) and $f(y). Two properties apply to a PDF: <span class="math inline">\(f(x) \ge 0\)</span> for all <span class="math inline">\(x\)</span>, and <span class="math inline">\(\int_{-\infty}^{\infty} f(x) dx = 1\)</span>. Also,</p>
+<ul>
+<li>The cumulative density function (CDF) is <span class="math inline">\(F(x) = \int_{-\infty}^{\infty} f(x) dx\)</span>.</li>
+<li>The joint distribution of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is <span class="math inline">\(f(x, y) = f(x|y)f(y) = f(y|x)f(x)\)</span> where <span class="math inline">\(f(x|y)\)</span> is called the <em>conditional PDF</em>.</li>
+<li>The marginal PDF is <span class="math inline">\(f(x) = \int_{-\infty}^{\infty} f(x, y) dy\)</span>.</li>
+<li>The chain rule: <span class="math inline">\(f(x_1, x_2, x_3, \ldots, x_k) = f(x_1| x_2, x_3, \ldots, x_k) f(x_2 | x_3, \ldots, x_k) \cdots f(x_k)\)</span></li>
+</ul>
 <p>Given a distribution function <span class="math inline">\(f(x)\)</span>, its integral over the domain of <span class="math inline">\(x\)</span> sums to 1, <span class="math inline">\(\int {f(x)} dx = 1\)</span>. The expected value of random variable <span class="math inline">\(X\)</span> with distribution function <span class="math inline">\(f(x)\)</span> is <span class="math inline">\(E[X] = \int x \cdot f(x) dx\)</span>. The variance of <span class="math inline">\(x\)</span> is <span class="math inline">\(Var(X) = E[(X - E[X])^2] = \int x^2 \cdot f(x) dx\)</span>. Alternatively <span class="math inline">\(Var(X) = E[X^2] - E[X]^2\)</span>.</p>
 <p>For example, suppose <span class="math inline">\(f(x) = cx^2\)</span>, <span class="math inline">\(x \in [0, 1]\)</span>. Then <span class="math inline">\(c = 3\)</span> because <span class="math inline">\(\int_{x = 0}^1 cx^2 dx = 1\)</span>. The expected value of <span class="math inline">\(X\)</span> is <span class="math inline">\(E[X] = \int_{x = 0}^1 x \cdot (3x^2) dx = \frac{3}{4}\)</span>. The variance of <span class="math inline">\(X\)</span> is <span class="math inline">\(Var[X] = \int_{x = 0}^1 (x - \frac{3}{4})^2 \cdot (3x^2) dx\)</span> which you can solve for <span class="math inline">\(\frac{144}{3840} = .0375\)</span>. Alternatively, <span class="math inline">\(Var[X] = \int_{x = 0}^1 x^2 \cdot (3x^2) dx - \left(\frac{3}{4}\right)^2\)</span> which you can solve for <span class="math inline">\(\frac{3}{80} = .0375\)</span></p>
 <div id="bernoulli" class="section level2 hasAnchor" number="2.1">
@@ -234,8 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="probability_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>There are several ways to calculate a 95% CI for <span class="math inline">\(\pi\)</span>. One method is the normal approximation <strong>Wald</strong> interval.</p>
 <p><span class="math display">\[\pi = p \pm z_{\alpha /2} \sqrt{\frac{p (1 - p)}{n}}\]</span></p>
@@ -320,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-3"><a href="random-variables-and-distributions.html#cb23-3" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="dv">1315</span>, <span class="fl">0.46</span>)</span>
 <span id="cb23-4"><a href="random-variables-and-distributions.html#cb23-4" tabindex="-1"></a>  )</span>
 <span id="cb23-5"><a href="random-variables-and-distributions.html#cb23-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">if_else</span>(df<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">650</span> <span class="sc">|</span> df<span class="sc">$</span>y <span class="sc">&gt;=</span> <span class="dv">650</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
-<pre><code>## [1] 0.1579</code></pre>
+<pre><code>## [1] 0.157</code></pre>
 <p>A couple other points to remember:</p>
 <ul>
 <li>The Bernoulli distribution is a special case of the binomial with <span class="math inline">\(n = 1\)</span>.</li>
@@ -569,36 +575,35 @@ P(X = k) &amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} {n \choose k}p^k(1-p)^{
 </ul>
 <p>The probability density function for the shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span> form is</p>
 <blockquote>
-<p>If <span class="math inline">\(X\)</span> is the interval until the <span class="math inline">\(k^{th}\)</span> successful event when the average interval is <span class="math inline">\(\theta\)</span>, then <span class="math inline">\(X\)</span> is a random variable with a gamma distribution <span class="math inline">\(X \sim \mathrm{\Gamma}(\alpha, \theta)\)</span>. The probability of an interval of <span class="math inline">\(X = x\)</span> is</p>
+<p>If <span class="math inline">\(X\)</span> is the interval until the <span class="math inline">\(k^{th}\)</span> successful event when the average interval is <span class="math inline">\(\theta\)</span>, then <span class="math inline">\(X\)</span> is a random variable with a gamma distribution <span class="math inline">\(X \sim \mathrm{\Gamma}(k, \theta)\)</span>. The probability of an interval of <span class="math inline">\(X = x\)</span> is</p>
 <p><span class="math display">\[f(x; k, \theta) = \frac{x^{k-1} e^{-\frac{x}{\theta}}}{\theta^k \Gamma(k)} \hspace{1cm} x, k, \theta &gt; 0.\]</span></p>
 <p>with <span class="math inline">\(E(X) = k \theta\)</span> and variance <span class="math inline">\(Var(X) = k \theta^2\)</span>.</p>
 </blockquote>
 <p>The probability density function for the shape <span class="math inline">\(\alpha\)</span> and rate <span class="math inline">\(\beta\)</span> form is</p>
 <blockquote>
-<p>If <span class="math inline">\(X\)</span> is the interval until the <span class="math inline">\(\alpha^{th}\)</span> successful event when events occur at a rate of <span class="math inline">\(\beta\)</span> times per interval, then <span class="math inline">\(X\)</span> is a random variable with a gamma distribution <span class="math inline">\(X \sim \mathrm{\Gamma}(k, \beta)\)</span>. The probability of an interval of <span class="math inline">\(X = x\)</span> is</p>
-<p><span class="math display">\[f(x; \alpha, \beta) = \frac{\beta^\alpha x^{\alpha-1}e^{-\beta x}}{\Gamma(k)} \hspace{1cm} x, \alpha, \beta &gt; 0.\]</span></p>
+<p>If <span class="math inline">\(X\)</span> is the interval until the <span class="math inline">\(\alpha^{th}\)</span> successful event when events occur at a rate of <span class="math inline">\(\beta\)</span> times per interval, then <span class="math inline">\(X\)</span> is a random variable with a gamma distribution <span class="math inline">\(X \sim \mathrm{\Gamma}(\alpha, \beta)\)</span>. The probability of an interval of <span class="math inline">\(X = x\)</span> is</p>
+<p><span class="math display">\[f(x; \alpha, \beta) = \frac{\beta^\alpha x^{\alpha-1}e^{-\beta x}}{\Gamma(\alpha)} \hspace{1cm} x, \alpha, \beta &gt; 0.\]</span></p>
 <p>with <span class="math inline">\(E(X) = \alpha / \beta\)</span> and variance <span class="math inline">\(Var(X) = \alpha / \beta^2\)</span>.</p>
 </blockquote>
 <p>Gamma is the conjugate prior to the Poisson, exponential, normal, Pareto, and gamma likelihood distributions.</p>
-<p><strong>Example</strong>. On average, someone sends a money order once per 15 minutes (<span class="math inline">\(\theta = .25\)</span>). What is the probability someone sends <span class="math inline">\(k = 10\)</span> money orders in less than <span class="math inline">\(x = 3\)</span> hours?* This is a shape/scale formulation.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="random-variables-and-distributions.html#cb46-1" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="fl">0.25</span>)</span>
-<span id="cb46-2"><a href="random-variables-and-distributions.html#cb46-2" tabindex="-1"></a><span class="do">## [1] 0.7576078</span></span></code></pre></div>
-<p>You could equally express it in a shape/rate formulation by saying “4 money orders are sent per hour”.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="random-variables-and-distributions.html#cb47-1" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">4</span>)</span>
-<span id="cb47-2"><a href="random-variables-and-distributions.html#cb47-2" tabindex="-1"></a><span class="do">## [1] 0.7576078</span></span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="random-variables-and-distributions.html#cb48-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1000</span> <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb48-2"><a href="random-variables-and-distributions.html#cb48-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">pgamma</span>(<span class="at">q =</span> x, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> .<span class="dv">25</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb48-3"><a href="random-variables-and-distributions.html#cb48-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> prob)) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="random-variables-and-distributions.html#cb48-4" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb48-5"><a href="random-variables-and-distributions.html#cb48-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">3</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="random-variables-and-distributions.html#cb48-6" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">pgamma</span>(<span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> .<span class="dv">25</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb48-7"><a href="random-variables-and-distributions.html#cb48-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb48-8"><a href="random-variables-and-distributions.html#cb48-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb48-9"><a href="random-variables-and-distributions.html#cb48-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;P(X = 3, alpha = 10, theta = .25) = .758&quot;</span>,</span>
-<span id="cb48-10"><a href="random-variables-and-distributions.html#cb48-10" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of 10 events in 3 hours when the mean time to event is .25 hours.&quot;</span>,</span>
-<span id="cb48-11"><a href="random-variables-and-distributions.html#cb48-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Interval (x) (hours)&quot;</span>,</span>
-<span id="cb48-12"><a href="random-variables-and-distributions.html#cb48-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;pgamma&quot;</span>) </span></code></pre></div>
-<p><img src="probability_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><strong>Example</strong>. On average, someone sends a money order once per 15 minutes. What is the probability someone sends 10 money orders in less than 3 hours? The shape/scale formulation is <span class="math inline">\(x = 3\)</span>, <span class="math inline">\(k = 10\)</span>, and <span class="math inline">\(\theta = .25\)</span> hours elapsed per event. The shape/rate formulation is <span class="math inline">\(x = 3\)</span>, <span class="math inline">\(\alpha = 10\)</span>, and <span class="math inline">\(\beta = 4\)</span> events per hour. In <code>pgamma()</code> below, just remember that scale is the inverse of rate.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="random-variables-and-distributions.html#cb46-1" tabindex="-1"></a>(p <span class="ot">&lt;-</span> <span class="fu">pgamma</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="fl">0.25</span>))</span>
+<span id="cb46-2"><a href="random-variables-and-distributions.html#cb46-2" tabindex="-1"></a><span class="do">## [1] 0.7576078</span></span>
+<span id="cb46-3"><a href="random-variables-and-distributions.html#cb46-3" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="random-variables-and-distributions.html#cb46-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb46-5"><a href="random-variables-and-distributions.html#cb46-5" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> .<span class="dv">1</span>),</span>
+<span id="cb46-6"><a href="random-variables-and-distributions.html#cb46-6" tabindex="-1"></a>  <span class="at">prob =</span> <span class="fu">pgamma</span>(<span class="at">q =</span> x, <span class="at">shape =</span> <span class="dv">10</span>, <span class="at">scale =</span> .<span class="dv">25</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb46-7"><a href="random-variables-and-distributions.html#cb46-7" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-8"><a href="random-variables-and-distributions.html#cb46-8" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb46-9"><a href="random-variables-and-distributions.html#cb46-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> prob)) <span class="sc">+</span></span>
+<span id="cb46-10"><a href="random-variables-and-distributions.html#cb46-10" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">xend =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> p), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb46-11"><a href="random-variables-and-distributions.html#cb46-11" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">3</span>, <span class="at">y =</span> p, <span class="at">yend =</span> p), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb46-12"><a href="random-variables-and-distributions.html#cb46-12" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb46-13"><a href="random-variables-and-distributions.html#cb46-13" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, p, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb46-14"><a href="random-variables-and-distributions.html#cb46-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb46-15"><a href="random-variables-and-distributions.html#cb46-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Prob. of 10 events in 3 hrs when mean time to event is .25 hrs.&quot;</span>,</span>
+<span id="cb46-16"><a href="random-variables-and-distributions.html#cb46-16" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Interval (x) (hours)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;pgamma&quot;</span>) </span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>References: <a href="https://towardsdatascience.com/gamma-distribution-intuition-derivation-and-examples-55f407423840">Arein Kim</a>.</p>
 </div>
 <div id="beta" class="section level2 hasAnchor" number="2.7">
@@ -611,18 +616,18 @@ P(X = k) &amp;=&amp; \mathrm{lim}_{n \rightarrow \infty} {n \choose k}p^k(1-p)^{
 </blockquote>
 <p>The <span class="math inline">\(\mathrm{B}(\alpha, \beta)\)</span> is a normalization constant that causes the pdf to integrate to 1 over the range of <span class="math inline">\(p\)</span>, <span class="math inline">\(\int_0^1f(p)dp = 1.\)</span></p>
 <p><span class="math inline">\(\mathrm{Beta}(1, 1)\)</span> expresses a uniform probability density, the expression of complete ignorance of the correct prior distribution.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="random-variables-and-distributions.html#cb49-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">p =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">01</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a href="random-variables-and-distributions.html#cb49-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Beta =</span> <span class="fu">dbeta</span>(p, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb49-3"><a href="random-variables-and-distributions.html#cb49-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> Beta)) <span class="sc">+</span></span>
-<span id="cb49-4"><a href="random-variables-and-distributions.html#cb49-4" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb49-5"><a href="random-variables-and-distributions.html#cb49-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Beta(1, 1) is the uniform probability density.&quot;</span>)</span></code></pre></div>
-<p><img src="probability_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="random-variables-and-distributions.html#cb47-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">p =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">01</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="random-variables-and-distributions.html#cb47-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Beta =</span> <span class="fu">dbeta</span>(p, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="random-variables-and-distributions.html#cb47-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> Beta)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="random-variables-and-distributions.html#cb47-4" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb47-5"><a href="random-variables-and-distributions.html#cb47-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Beta(1, 1) is the uniform probability density.&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p><span class="math inline">\(\mathrm{Beta}(5, 5)\)</span> is a symmetric probability; <span class="math inline">\(\mathrm{Beta}(10, 10)\)</span> is also symmetric, but with smaller variance. In general, the strength of the prior increases with the sum of <span class="math inline">\(\alpha + \beta\)</span>.</p>
-<p><img src="probability_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="probability_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>The distribution shifts to the left if <span class="math inline">\(\beta\)</span> &gt; <span class="math inline">\(\alpha\)</span> and right if <span class="math inline">\(\alpha\)</span> &gt; <span class="math inline">\(\beta\)</span>.</p>
-<p><img src="probability_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="probability_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>If one of the values is &lt; 1, the curve flips toward <span class="math inline">\(\infty\)</span> at the extreme. <span class="math inline">\(\alpha\)</span> or <span class="math inline">\(\beta\)</span> is usually 0.5 to denote near certainty.</p>
-<p><img src="probability_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="probability_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 </div>
 <div id="normal" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Normal<a href="random-variables-and-distributions.html#normal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -657,20 +662,20 @@ S(x; k, \beta) &amp;=&amp; 1 - F(x; k, \beta) \\
 &amp;=&amp; e^{-(\beta x)^k}
 \end{eqnarray}\]</span></p>
 <p>The probability of failing at time <span class="math inline">\(x = t\)</span> is the probability of surviving to time time multiplied by the hazard of failing when <span class="math inline">\(x = t\)</span>, <span class="math inline">\(f(t; k, \beta) = S(t; k, \beta) \cdot h(t; k, \beta)\)</span>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="random-variables-and-distributions.html#cb50-1" tabindex="-1"></a><span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="at">from =</span> .<span class="dv">05</span>, <span class="at">to =</span> <span class="fl">2.5</span>, <span class="at">by =</span> .<span class="dv">01</span>),</span>
-<span id="cb50-2"><a href="random-variables-and-distributions.html#cb50-2" tabindex="-1"></a>                   <span class="at">k =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb50-3"><a href="random-variables-and-distributions.html#cb50-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f =</span> <span class="fu">dweibull</span>(x, k),</span>
-<span id="cb50-4"><a href="random-variables-and-distributions.html#cb50-4" tabindex="-1"></a>         <span class="at">F =</span> <span class="fu">pweibull</span>(x, k),</span>
-<span id="cb50-5"><a href="random-variables-and-distributions.html#cb50-5" tabindex="-1"></a>         <span class="at">S =</span> <span class="fu">pweibull</span>(x, k, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb50-6"><a href="random-variables-and-distributions.html#cb50-6" tabindex="-1"></a>         <span class="at">h =</span> f <span class="sc">/</span> S) <span class="sc">%&gt;%</span></span>
-<span id="cb50-7"><a href="random-variables-and-distributions.html#cb50-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(f<span class="sc">:</span>h)) <span class="sc">%&gt;%</span></span>
-<span id="cb50-8"><a href="random-variables-and-distributions.html#cb50-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> value, <span class="at">color =</span> <span class="fu">factor</span>(k))) <span class="sc">+</span></span>
-<span id="cb50-9"><a href="random-variables-and-distributions.html#cb50-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb50-10"><a href="random-variables-and-distributions.html#cb50-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb50-11"><a href="random-variables-and-distributions.html#cb50-11" tabindex="-1"></a>  <span class="fu">scale_colour_hue</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">270</span>)) <span class="sc">+</span></span>
-<span id="cb50-12"><a href="random-variables-and-distributions.html#cb50-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
-<span id="cb50-13"><a href="random-variables-and-distributions.html#cb50-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="st">&quot;k&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Weibull (lambda = 1))&quot;</span>)</span></code></pre></div>
-<p><img src="probability_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="random-variables-and-distributions.html#cb48-1" tabindex="-1"></a><span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="at">from =</span> .<span class="dv">05</span>, <span class="at">to =</span> <span class="fl">2.5</span>, <span class="at">by =</span> .<span class="dv">01</span>),</span>
+<span id="cb48-2"><a href="random-variables-and-distributions.html#cb48-2" tabindex="-1"></a>                   <span class="at">k =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="random-variables-and-distributions.html#cb48-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f =</span> <span class="fu">dweibull</span>(x, k),</span>
+<span id="cb48-4"><a href="random-variables-and-distributions.html#cb48-4" tabindex="-1"></a>         <span class="at">F =</span> <span class="fu">pweibull</span>(x, k),</span>
+<span id="cb48-5"><a href="random-variables-and-distributions.html#cb48-5" tabindex="-1"></a>         <span class="at">S =</span> <span class="fu">pweibull</span>(x, k, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb48-6"><a href="random-variables-and-distributions.html#cb48-6" tabindex="-1"></a>         <span class="at">h =</span> f <span class="sc">/</span> S) <span class="sc">%&gt;%</span></span>
+<span id="cb48-7"><a href="random-variables-and-distributions.html#cb48-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(f<span class="sc">:</span>h)) <span class="sc">%&gt;%</span></span>
+<span id="cb48-8"><a href="random-variables-and-distributions.html#cb48-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> value, <span class="at">color =</span> <span class="fu">factor</span>(k))) <span class="sc">+</span></span>
+<span id="cb48-9"><a href="random-variables-and-distributions.html#cb48-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb48-10"><a href="random-variables-and-distributions.html#cb48-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-11"><a href="random-variables-and-distributions.html#cb48-11" tabindex="-1"></a>  <span class="fu">scale_colour_hue</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">270</span>)) <span class="sc">+</span></span>
+<span id="cb48-12"><a href="random-variables-and-distributions.html#cb48-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-13"><a href="random-variables-and-distributions.html#cb48-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="st">&quot;k&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Weibull (lambda = 1))&quot;</span>)</span></code></pre></div>
+<p><img src="probability_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>More <a href="https://www.weibull.com/basics/lifedata.htm">here</a>.</p>
 
 </div>
